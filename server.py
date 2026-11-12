@@ -9,6 +9,7 @@ import os
 import json
 import numpy as np
 from flask import Flask, request, jsonify, send_from_directory
+from scripts.heritage_rag import rag_engine
 
 app = Flask(__name__, static_folder="static")
 
@@ -97,26 +98,37 @@ def raycast_gaze():
 
     if closest_region:
         hit_pos = (ray_origin + ray_dir * min_dist).tolist()
-        guide_reply = (
-            f"**Focused Subject:** {closest_region['label']}\n\n"
-            f"{closest_region['description']}\n\n"
-            f"**Iconography & Historical Attribution:**\n"
-        )
-        for k, v in closest_region.get("iconography", {}).items():
-            guide_reply += f"- **{k.replace('_', ' ').capitalize()}**: {v}\n"
+        part_id = closest_region.get("id")
+        
+        # Grounded RAG query from ASI & UNESCO records
+        rag_res = rag_engine.query(monument_id, part_id, user_query)
+        guide_reply = rag_res["answer"]
+        suggested_questions = rag_res.get("suggested_questions", [])
 
         return jsonify({
             "hit": True,
             "region": closest_region,
             "distance": round(float(min_dist), 2),
             "hit_point": hit_pos,
-            "guide_response": guide_reply
+            "guide_response": guide_reply,
+            "suggested_questions": suggested_questions,
+            "citations": rag_res.get("citations", [])
         })
     else:
         return jsonify({
             "hit": False,
             "guide_response": "Your gaze is currently directed toward unannotated space or open perimeter. Pan your gaze toward the architectural reliefs or pillars!"
         })
+
+@app.route("/api/ask_part", methods=["POST"])
+def ask_part():
+    data = request.json or {}
+    monument_id = data.get("monument_id", "hampi_stone_chariot")
+    part_id = data.get("part_id", "")
+    query = data.get("query", "Tell me about this architectural part.")
+    
+    rag_res = rag_engine.query(monument_id, part_id, query)
+    return jsonify(rag_res)
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=False)

@@ -95,6 +95,36 @@
       border: 1px solid rgba(0, 255, 204, 0.3);
       margin-bottom: 8px;
     }
+    .pill {
+      display: inline-block;
+      padding: 3px 8px;
+      font-size: 0.72rem;
+      border-radius: 10px;
+      background: rgba(56, 139, 253, 0.15);
+      color: #58a6ff;
+      border: 1px solid rgba(56, 139, 253, 0.3);
+      margin: 2px 4px 2px 0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .pill:hover {
+      background: rgba(56, 139, 253, 0.35);
+      color: #ffffff;
+      border-color: #58a6ff;
+    }
+    .citation-box {
+      margin-top: 10px;
+      padding: 8px 10px;
+      background: rgba(13, 17, 23, 0.9);
+      border-left: 3px solid #00ffcc;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      color: #8b949e;
+      line-height: 1.4;
+    }
+    .citation-box b {
+      color: #c9d1d9;
+    }
     .instructions {
       font-size: 0.78rem;
       color: #8b949e;
@@ -125,6 +155,15 @@
       <div id="guide-text">Rotate the camera. The center crosshair simulates your VR gaze vector into the 3D scene.</div>
     </div>
 
+    <div id="part-chat-container" style="margin-top: 10px; display: none;">
+      <div style="font-size: 0.75rem; color: #8b949e; margin-bottom: 4px;"><b>Inquire about this component (ASI/UNESCO Grounded):</b></div>
+      <div id="suggested-pills" style="margin-bottom: 8px;"></div>
+      <div style="display: flex; gap: 6px;">
+        <input type="text" id="part-chat-input" placeholder="Ask ASI Guide about this part..." style="flex: 1; background: #0d1117; border: 1px solid #30363d; color: #fff; padding: 7px 10px; border-radius: 6px; font-size: 0.8rem;">
+        <button id="part-chat-btn" style="width: auto; background: #00ffcc; color: #000; border: none; padding: 7px 14px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 0.8rem; margin-bottom: 0;">Ask</button>
+      </div>
+    </div>
+
     <div class="instructions">
       • <b>Left Click + Drag:</b> Rotate Gaze Vector<br>
       • <b>Right Click + Drag:</b> Pan Camera<br>
@@ -138,10 +177,78 @@
     let currentMonument = "hampi_stone_chariot";
     let isRaycasting = false;
     let lastHitId = null;
+    let currentLockedPart = null;
 
     const crosshair = document.getElementById("crosshair");
     const guideText = document.getElementById("guide-text");
     const gazeStatus = document.getElementById("gaze-status");
+    const partChatContainer = document.getElementById("part-chat-container");
+    const suggestedPills = document.getElementById("suggested-pills");
+    const partChatInput = document.getElementById("part-chat-input");
+    const partChatBtn = document.getElementById("part-chat-btn");
+
+    function formatMarkdown(text) {
+      if (!text) return "";
+      return text
+        .replace(/\*\*(.*?)\*\*/g, '<b style="color: #00ffcc;">$1</b>')
+        .replace(/\*(.*?)\*/g, '<i>$1</i>')
+        .replace(/\n\n/g, '<br><br>')
+        .replace(/\n/g, '<br>');
+    }
+
+    function askPart(questionText) {
+      if (!currentLockedPart || !questionText.trim()) return;
+      guideText.innerHTML = `<i>Querying ASI & UNESCO Knowledge Base for '${currentLockedPart}'...</i>`;
+      
+      fetch("/api/ask_part", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          monument_id: currentMonument,
+          part_id: currentLockedPart,
+          query: questionText
+        })
+      })
+      .then(res => res.json())
+      .then(res => {
+        if (res.success) {
+          let citationsHtml = '';
+          if (res.citations && res.citations.length > 0) {
+            citationsHtml = `
+              <div class="citation-box">
+                <b>Verified Archaeological Authority:</b><br>
+                ${res.citations.map(c => `• ${c}`).join('<br>')}
+              </div>
+            `;
+          }
+          guideText.innerHTML = formatMarkdown(res.answer) + citationsHtml;
+        } else {
+          guideText.innerHTML = `<i>${res.answer}</i>`;
+        }
+      })
+      .catch(err => {
+        console.error("Ask part error:", err);
+        guideText.innerHTML = "<i>Error contacting ASI Grounded Agent.</i>";
+      });
+    }
+
+    partChatBtn.addEventListener("click", () => {
+      const q = partChatInput.value;
+      if (q) {
+        askPart(q);
+        partChatInput.value = "";
+      }
+    });
+
+    partChatInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        const q = partChatInput.value;
+        if (q) {
+          askPart(q);
+          partChatInput.value = "";
+        }
+      }
+    });
 
     function createCircleTexture() {
       const canvas = document.createElement("canvas");
@@ -353,17 +460,35 @@
             hitHelper.material.color.setHex(0xff3366);
           }
 
-          guideText.innerHTML = `
-            <b style="color: #00ffcc; font-size: 1rem;">${data.region.label}</b><br>
-            <p style="margin: 6px 0;">${data.region.description}</p>
-            <div style="font-size: 0.8rem; background: #161b22; padding: 8px; border-radius: 6px; line-height: 1.5;">
-              ${data.region.iconography.architectural_element ? `<b>Element:</b> ${data.region.iconography.architectural_element}<br>` : ''}
-              <b>Period:</b> ${data.region.iconography.period || data.region.iconography.dynasty || 'Vijayanagara Empire, 16th century CE'}<br>
-              ${data.region.iconography.patron ? `<b>Patron:</b> ${data.region.iconography.patron}<br>` : ''}
-              <b>Thematic Meaning:</b> ${data.region.iconography.thematic_meaning || data.region.iconography.thematic_significance || data.region.iconography.mythology || 'Sacred Architecture'}
-            </div>
-          `;
+          currentLockedPart = data.region.id;
+          partChatContainer.style.display = "block";
+
+          let citationsHtml = '';
+          if (data.citations && data.citations.length > 0) {
+            citationsHtml = `
+              <div class="citation-box">
+                <b>Verified Archaeological Authority:</b><br>
+                ${data.citations.map(c => `• ${c}`).join('<br>')}
+              </div>
+            `;
+          }
+
+          guideText.innerHTML = formatMarkdown(data.guide_response) + citationsHtml;
+
+          // Render suggested questions pills
+          suggestedPills.innerHTML = '';
+          if (data.suggested_questions && data.suggested_questions.length > 0) {
+            data.suggested_questions.forEach(q => {
+              const pill = document.createElement("span");
+              pill.className = "pill";
+              pill.innerText = q;
+              pill.onclick = () => askPart(q);
+              suggestedPills.appendChild(pill);
+            });
+          }
         } else {
+          currentLockedPart = null;
+          partChatContainer.style.display = "none";
           crosshair.classList.remove("locked");
           gazeStatus.innerText = "Raycasting Active (No Target)";
           gazeStatus.style.borderColor = "#00ffcc";

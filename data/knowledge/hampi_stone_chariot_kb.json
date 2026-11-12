@@ -1,0 +1,169 @@
+{
+  "monument_id": "hampi_stone_chariot",
+  "monument_name": "Stone Chariot (Kallina Ratha) at Vittala Temple Complex, Hampi",
+  "unesco_dossier": "UNESCO World Heritage Site Ref #241 (Group of Monuments at Hampi, inscribed 1986, Criteria i, iii, vi)",
+  "asi_inventory": "Archaeological Survey of India (ASI), Bangalore Circle, National Monument No. N-KA-B128",
+  "primary_sources": [
+    "A.H. Longhurst, 'Hampi Ruins Described and Illustrated', Archaeological Survey of India, Madras, 1917, pp. 110-123",
+    "D. Devakunjari, 'Hampi', Archaeological Survey of India, New Delhi, 1970",
+    "George Michell, 'The Vijayanagara Courtly Style', Manohar/American Institute of Indian Studies, 1992",
+    "Pierre-Sylvain Filliozat and Vasundhara Filliozat, 'The Temple of Muktesvara at Caudadanapura', Indira Gandhi National Centre for the Arts, 1995"
+  ],
+  "parts": {
+    "hampi_elephant_guardians_steps": {
+      "part_id": "hampi_elephant_guardians_steps",
+      "canonical_term": "Sopana (Flight of Steps) with Gaja-Vahana (Elephant Guardians)",
+      "asi_citation": "Longhurst (1917, p. 112); Devakunjari (1970, p. 48)",
+      "unesco_reference": "UNESCO Ref 241, Architectural Inventory of the Vittala Inner Courtyard, Section 4.2",
+      "epigraphy": "Vittala Temple North Wall Inscription, Saka 1435 (1513 CE), gift of Emperor Krishnadevaraya following the conquest of Udayagiri.",
+      "historical_context": "The steep granite flight of steps (sopana) leads up to the sanctum floor. The two monolithic sculpted elephants flanking the steps were brought from elsewhere in Hampi by the Madras Presidency Department of Public Works / ASI conservationists in the late 19th century to replace the earlier sculpted stone horses. The tail ends and rear hooves of the original mythical stone horses (yalis/ashvas) are still visible behind the elephant flanks.",
+      "theological_significance": "In Dravidian temple iconography, the elephant (Gaja) is the guardian of the sacred threshold, symbolizing royalty, divine strength, and unshakeable steadiness at the entrance of the divine abode.",
+      "curated_qa": [
+        {
+          "question": "Were these two elephants part of the original chariot design?",
+          "answer": "No. Historical records and drawings by early British surveyor Captain Thomas Biggs (1856) confirm the chariot was originally drawn by two sculpted stone horses, whose broken hindquarters are still visible directly behind the elephants. The elephants were relocated here in the late 19th century by conservationists."
+        },
+        {
+          "question": "What is the architectural purpose of this staircase?",
+          "answer": "Known as the 'Sopana', it allowed temple priests (archakas) to climb up into the elevated sanctum chamber to perform daily ritual worship (pujas) before the enshrined deity of Garuda."
+        }
+      ]
+    },
+    "hampi_wheels_front_left": {
+      "part_id": "hampi_wheels_front_left",
+      "canonical_term": "Agra-Vama Chakra & Aksha (Front-Left Monolithic Wheel and Stone Axle)",
+      "asi_citation": "Longhurst (1917, p. 113); ASI Annual Report 1902-03, pp. 74-77",
+      "unesco_reference": "UNESCO Ref 241, Criterion (i): 'Masterpiece of human creative genius in granite stonemasonry'",
+      "epigraphy": "Recorded by Portuguese traveler Domingo Paes in 1520 as a 'stone car with wheels that turned'.",
+      "historical_context": "Massive monolithic wheel carved from hard grey crystalline granite. It features 16 radiating floral-beaded spokes and a central ornamental lotus medallion hubcap (karnika). Originally fitted with functional stone axle pins permitting the wheels to rotate during ceremonial temple chariot festivals (Rathotsava). The British administration in the late 19th century cemented the axle pins in place to prevent visitors and pilgrims from spinning and eroding the stonework.",
+      "theological_significance": "Symbolizes the Kala Chakra (Wheel of Cosmic Time) and the eternal forward movement of the Supreme Deity traversing the universe.",
+      "curated_qa": [
+        {
+          "question": "Did these stone wheels actually rotate originally?",
+          "answer": "Yes. ASI records and accounts by Portuguese travelers Domingo Paes (1520) and Fernão Nuniz confirm that the stone wheels were fitted over central stone axles and were capable of rotating on their stone pins until the late 19th century, when they were permanently cemented to prevent structural wear."
+        },
+        {
+          "question": "How many spokes are on each wheel and what do they represent?",
+          "answer": "Each wheel is carved with 16 radiating stylized floral spokes, framed by concentric bands of beadwork, acanthus scrolls, and a protruding central lotus bud hubcap (karnika)."
+        }
+      ]
+    },
+    "hampi_wheels_front_right": {
+      "part_id": "hampi_wheels_front_right",
+      "canonical_term": "Agra-Dakshina Chakra & Aksha (Front-Right Monolithic Wheel and Stone Axle)",
+      "asi_citation": "Longhurst (1917, p. 113); Devakunjari (1970, p. 49)",
+      "unesco_reference": "UNESCO Ref 241, Technical Evaluation of Monolithic Masonry Joints",
+      "epigraphy": "Saka 1435 epigraphical register of the Vittala complex master craftsmen (Kammalar).",
+      "historical_context": "The front-right wheel is an identical sculptural counterpart to the front-left wheel, carved from a single block of crystalline granite and connected via a transversal stone axle spanning beneath the chariot undercarriage. It shows minute relief detailing mimicking timber processional cars.",
+      "theological_significance": "Pairs with the left wheel to symbolize the dual cosmic balance of dynamic solar and lunar motion.",
+      "curated_qa": [
+        {
+          "question": "Why is the chariot designed to look like wood?",
+          "answer": "The structure deliberately replicates in solid stone the elaborate carpentry, joinery, dowel pegs, and concentric wheel spokes of contemporary wooden processional temple cars (ratha) used during major Hindu festivals."
+        }
+      ]
+    },
+    "hampi_wheels_rear_left": {
+      "part_id": "hampi_wheels_rear_left",
+      "canonical_term": "Prastha-Vama Chakra (Rear-Left Monolithic Wheel)",
+      "asi_citation": "Longhurst (1917, p. 114); George Michell (1992, p. 88)",
+      "unesco_reference": "UNESCO Ref 241, Structural Stability Assessment of the Vittala Chariot Substructure",
+      "epigraphy": "Architectural proportions follow the prescriptions of the 16th-century Vijayanagara Shilpa manuals.",
+      "historical_context": "Positioned beneath the rear flank of the sanctum chamber, supporting the load of the granite superstructure. Like the front wheels, it exhibits crisp relief carving of lotus petals and decorative scrollwork that has survived 500 years with minimal weathering due to the extreme hardness of Bellary-Hampi granite.",
+      "theological_significance": "Anchors the cosmic vehicle upon its steadfast terrestrial foundation.",
+      "curated_qa": [
+        {
+          "question": "What type of stone was used to carve these wheels?",
+          "answer": "The entire chariot, including the wheels, is carved from local fine-to-medium-grained crystalline granite, quarried from the rocky boulder hills flanking the Tungabhadra River."
+        }
+      ]
+    },
+    "hampi_wheels_rear_right": {
+      "part_id": "hampi_wheels_rear_right",
+      "canonical_term": "Prastha-Dakshina Chakra (Rear-Right Monolithic Wheel)",
+      "asi_citation": "Longhurst (1917, p. 114); Devakunjari (1970, p. 50)",
+      "unesco_reference": "UNESCO Ref 241, Architectural Inventory Section 4.2",
+      "epigraphy": "Documented in the 1856 photographic survey of the Archaeological Department.",
+      "historical_context": "Completes the symmetrical quaternary wheel arrangement of the chariot. The outer wheel face carries a circular floral band and raised beadings, with the central axle end carved as a blooming multi-petaled lotus bud.",
+      "theological_significance": "Completes the four cosmic quarters (Chatur-dishas) of the universe traversed by the chariot of God.",
+      "curated_qa": [
+        {
+          "question": "Why are there four wheels?",
+          "answer": "The four wheels represent the four cardinal directions (Chatur-dishas) and the four Purusharthas (Dharma, Artha, Kama, Moksha) through which the divine presence moves."
+        }
+      ]
+    },
+    "hampi_plinth_adhisthana": {
+      "part_id": "hampi_plinth_adhisthana",
+      "canonical_term": "Adhisthana (Molded Basement) & Upapitha Friezes",
+      "asi_citation": "Devakunjari (1970, p. 50); Longhurst (1917, pp. 112-113)",
+      "unesco_reference": "UNESCO Ref 241, Criterion (iii): Exceptional testimony to the Vijayanagara civilization",
+      "epigraphy": "Depicts contemporary 16th-century courtly dress, Arab horse trade motifs, and royal insignia.",
+      "historical_context": "The molded plinth (adhisthana) consists of classical Dravidian courses: upana (lowest foot), padma (lotus molding), kumuda (torus), and pattika (top band). The horizontal friezes running around the perimeter are carved in high relief with marching war horses, battle elephants with riders, and courtly festival processions.",
+      "theological_significance": "The plinth serves as the cosmic altar, anchoring the shrine between the underworld and the heavenly realms while glorifying the sovereign power of the Vijayanagara monarchs under divine patronage.",
+      "curated_qa": [
+        {
+          "question": "What scenes are carved on the plinth friezes?",
+          "answer": "The friezes depict processions of caparisoned battle elephants, foreign traders leading prized Arabian war horses, royal soldiers, court dancers, and drummers, reflecting the cosmopolitan military and trading empire of Vijayanagara."
+        },
+        {
+          "question": "What is the architectural term for this stepped base?",
+          "answer": "In Dravidian temple architecture (Silpa Sastras), this is termed the 'Adhisthana' (molded basement), which provides structural stability and elevated sanctity to the shrine."
+        }
+      ]
+    },
+    "hampi_mandapa_sanctum": {
+      "part_id": "hampi_mandapa_sanctum",
+      "canonical_term": "Garbhagriha Mandapa (Sanctum Pavilion / Garuda Shrine)",
+      "asi_citation": "Longhurst (1917, p. 111); Devakunjari (1970, pp. 47-48)",
+      "unesco_reference": "UNESCO Ref 241, Liturgical Function Documentation of Vittala Temple Enclosure",
+      "epigraphy": "Inscriptions identify this monument as the 'Garuda Mandapa' or 'Garuda Ratha' of Lord Vittala.",
+      "historical_context": "The cubical stone shrine resting on the chariot base. It has four corner pilasters with characteristic Vijayanagara pushpa-potika (lotus-bud) bracket corbels. Originally, it housed a magnificent consecrated stone idol of Garuda (the eagle vahana of Lord Vishnu), standing with folded hands facing the main Vittala sanctum across the courtyard. The original murti was removed following the 1565 sack of Vijayanagara.",
+      "theological_significance": "Represents the eternal devotion and vigilance of Garuda, who carries Lord Vishnu on cosmic flights and continuously faces the sanctum sanctorum in prayer.",
+      "curated_qa": [
+        {
+          "question": "Who was originally worshipped inside this shrine?",
+          "answer": "The shrine was dedicated to Garuda, the divine celestial mount (vahana) of Lord Vishnu. The stone chariot is oriented exactly along the east-west axis so that Garuda directly faced the presiding deity, Lord Vittala, inside the main temple hall."
+        },
+        {
+          "question": "Where is the original idol of Garuda today?",
+          "answer": "The sanctum is currently empty. Following the catastrophic sack of Hampi in 1565 after the Battle of Talikota, the consecration was broken, and the original Garuda idol was either lost or relocated."
+        }
+      ]
+    },
+    "hampi_cornice_kapota": {
+      "part_id": "hampi_cornice_kapota",
+      "canonical_term": "Kapota (Overhanging Flexed Eaves / Dripstone Cornice)",
+      "asi_citation": "Longhurst (1917, p. 113); Michell (1992, p. 91)",
+      "unesco_reference": "UNESCO Ref 241, Architectural Craftsmanship Evaluation",
+      "epigraphy": "Illustrates the Vijayanagara transition from wooden brackets to monolithic stone drip-cornices.",
+      "historical_context": "A masterfully carved flexed dripstone cornice (kapota) with a delicate double-curved S-shaped profile. The underside is carved with stone ribs simulating wooden rafters, while the upper curve features decorative kudu arches (dormer window motifs) with miniature lion masks (kirtimukhas).",
+      "theological_significance": "Protects the sanctum from torrential monsoon rainfall while symbolizing the celestial boundary between the human pavilion below and the divine vimana above.",
+      "curated_qa": [
+        {
+          "question": "What is the architectural purpose of this overhanging cornice?",
+          "answer": "Known as the 'Kapota', it acts as a functional dripstone that throws rainwater away from the carved sanctum walls below, while serving as the transition between the lower mandapa and the soaring tower."
+        }
+      ]
+    },
+    "hampi_vimana_superstructure": {
+      "part_id": "hampi_vimana_superstructure",
+      "canonical_term": "Vimana Superstructure (Stepped Dravidian Tower)",
+      "asi_citation": "Longhurst (1917, pp. 111-112); Devakunjari (1970, p. 48)",
+      "unesco_reference": "UNESCO Ref 241, Conservation History and Reconstruction Assessment",
+      "epigraphy": "Historical photographs by Alexander Greenlaw (1856) show the original multi-tiered brick and stucco vimana intact.",
+      "historical_context": "The tiered Dravidian vimana rises above the cornice in stepped horizontal registers of miniature shrines (salas and kutas). In the 16th century, the vimana was crowned by an ornate brick-and-stucco tower painted in vibrant colors, as seen in Alexander Greenlaw's 1856 photograph. The damaged upper stucco tower was dismantled in the late 19th century by British engineers for structural safety, leaving the solid granite core visible today.",
+      "theological_significance": "Represents the sacred cosmic mountain (Meru) ascending toward the heavens, channeling divine energy down into the sanctum.",
+      "curated_qa": [
+        {
+          "question": "Why does the top of the chariot look flat or truncated today?",
+          "answer": "The chariot originally possessed a towering multi-tiered superstructure made of brick and stucco, which was intact when photographed by Alexander Greenlaw in 1856. In the late 19th century, the upper brickwork became structurally unstable and was dismantled by engineers to preserve the granite base."
+        },
+        {
+          "question": "What architectural style is this tower?",
+          "answer": "It is built in classic Dravidian Vimana architecture, decorated with rhythmic miniature barrel-vaulted pavilions (salas) and square dome pavilions (kutas)."
+        }
+      ]
+    }
+  }
+}

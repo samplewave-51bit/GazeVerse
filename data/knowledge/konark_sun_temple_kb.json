@@ -1,0 +1,166 @@
+{
+  "monument_id": "konark_sun_temple",
+  "monument_name": "Sun Temple of Konark (Surya Deula), Odisha",
+  "unesco_dossier": "UNESCO World Heritage Site Ref #242 (Sun Temple, Konârak, inscribed 1984, Criteria i, iii, vi)",
+  "asi_inventory": "Archaeological Survey of India (ASI), Bhubaneswar Circle, National Monument No. N-OR-C1",
+  "primary_sources": [
+    "Debala Mitra, 'Konarak', Archaeological Survey of India, New Delhi, 1968 (reprinted 1976)",
+    "Alice Boner and Sadasiva Rath Sarma, 'Silpa Prakasa: Medieval Orissan Sanskrit Text on Temple Architecture', E.J. Brill, Leiden, 1966",
+    "B.M. Morrison, 'The Sun Temple of Konarak', Asian Art & Archaeology Monographs, 1980",
+    "Kendupatna Copper Plates of King Narasimhadeva II, dated Saka 1217 (1296 CE)"
+  ],
+  "parts": {
+    "konark_chariot_plinth_wheels": {
+      "part_id": "konark_chariot_plinth_wheels",
+      "canonical_term": "Pitha (Adhisthana Basement) & 24 Surya Chakras (Sundial Wheels)",
+      "asi_citation": "Debala Mitra (1968, pp. 24-32); ASI Archaeological Memoir No. 74",
+      "unesco_reference": "UNESCO Ref 242, Criterion (i): 'A monumental representation of the chariot of Surya, unique in world heritage'",
+      "epigraphy": "Kendupatna plates record King Langula Narasimhadeva I building the great temple of the Sun at Kona-kona to commemorate victories over Islamic sultanates of Bengal.",
+      "historical_context": "The colossal basement plinth (pitha) measures over 3 meters high and is conceived as the astronomical chariot of Surya. Along the north and south flanks are carved 24 monumental chlorite wheels, each 9 feet 9 inches (2.97m) in diameter. Each wheel has 8 wide primary spokes (dividing day and night into the 8 praharas of 3 hours each) and 8 thin secondary spokes, encrusted with beaded floral bands, medallions showing hunting scenes, dancers, and erotic mithunas.",
+      "theological_significance": "The 24 wheels represent the 24 fortnights (pakshas) of the solar calendar, the 12 signs of the zodiac (Rasis), and the cosmic wheel of dharma and time. As sundials, their shadows accurately calculate the exact hour and minute of the day based on the shadow cast by the hub over the perimeter beadings.",
+      "curated_qa": [
+        {
+          "question": "How do the Konark wheels function as astronomical sundials?",
+          "answer": "Each wheel has 8 major spokes and 8 minor spokes. The 8 major spokes divide the 24 hours into 8 praharas (3-hour periods). The rim of the wheel contains 60 decorative beads between spokes, each representing 3 minutes. By observing where the shadow of the central axle hub falls across the rim, ancient astronomers calculated the exact local solar time within a minute."
+        },
+        {
+          "question": "Why are there exactly 24 wheels carved on the plinth?",
+          "answer": "The 24 wheels symbolize the 24 fortnights (pakshas: Shukla Paksha and Krishna Paksha) comprising the 12 months of the Hindu solar year, as well as the 24 cosmic hours of the solar cycle."
+        }
+      ]
+    },
+    "konark_eastern_sopana_horses": {
+      "part_id": "konark_eastern_sopana_horses",
+      "canonical_term": "Purva Sopana (Eastern Flight of Steps) & Sapta Ashva (Seven Celestial Horses)",
+      "asi_citation": "Debala Mitra (1968, pp. 33-35)",
+      "unesco_reference": "UNESCO Ref 242, Architectural Masterpiece Evaluation Section 2.1",
+      "epigraphy": "Vedic Rigveda hymns (1.50) describe Surya riding in a golden chariot drawn by seven radiant bay mares.",
+      "historical_context": "The monumental eastern grand staircase leads up from the ground to the high platform terrace. Flanking the flight of steps were seven magnificently sculpted stone horses, captured mid-gallop with decorated saddles and straining bridles, poised to haul the massive temple chariot eastward toward the Bay of Bengal into the rising dawn. Six of the horses flank the sides, while the seventh is positioned centrally.",
+      "theological_significance": "The seven celestial horses represent the seven days of the week, the seven colors of the solar spectrum (rainbow), and the seven meters of Vedic poetry: Gayatri, Brihati, Ushnih, Jagati, Trishtubh, Anushtubh, and Pankti.",
+      "curated_qa": [
+        {
+          "question": "What do the seven horses of the Sun Chariot represent?",
+          "answer": "According to the Rigveda and the Silpa Prakasa, the seven horses represent the seven days of the week, the seven prismatic colors of solar light, and the seven sacred poetic meters of Vedic literature."
+        },
+        {
+          "question": "Why does the staircase face directly towards the East?",
+          "answer": "The staircase and the entire temple are oriented precisely toward the cardinal east so that the first rays of the rising equinoctial sun struck through the entrance portal directly into the sacred sanctum."
+        }
+      ]
+    },
+    "konark_natya_mandapa": {
+      "part_id": "konark_natya_mandapa",
+      "canonical_term": "Natya Mandapa / Mukhasala (Hypostyle Hall of Dance & Music)",
+      "asi_citation": "Debala Mitra (1968, pp. 36-41); ASI Annual Report 1906-07",
+      "unesco_reference": "UNESCO Ref 242, Criterion (vi): Direct association with living traditions of Odissi dance and music",
+      "epigraphy": "Inscriptions and texts record the institution of Devadasi dance rituals (Maharis) performing daily sunrise hymns for the Sun God.",
+      "historical_context": "A freestanding hypostyle open pavilion standing on its own high, profusely carved platform directly east of the Jagamohana. It contains four grand central stone pillars and dozens of peripheral columns. Every square inch of the pillars is alive with sculpted relief carvings of female dancers in classical Odissi bhangas (tribhanga postures), accompanied by musicians playing mridangams, cymbals, clarinets, and stringed veenas.",
+      "theological_significance": "Symbolizes the celebration of celestial joy, music (*nada-brahma*), and divine beauty as offerings to the Sun, who is the cosmic source of life, fertility, and inspiration.",
+      "curated_qa": [
+        {
+          "question": "What took place inside the Natya Mandapa?",
+          "answer": "The Natya Mandapa was an open festive pavilion where temple dancers (Maharis) and musicians performed sacred ritual dances, including the origins of classical Odissi dance, as daily offerings (seva) to Surya during sunrise and festival celebrations."
+        },
+        {
+          "question": "What instruments are carved on the pillars?",
+          "answer": "The pillars depict an encyclopedic catalog of 13th-century Indian musical instruments, including the mridangam (double-sided drum), manjira (brass cymbals), venu (bamboo flute), kahali (trumpet), and various stringed veenas."
+        }
+      ]
+    },
+    "konark_jagamohana_bada": {
+      "part_id": "konark_jagamohana_bada",
+      "canonical_term": "Bada (Vertical Cubical Walls) with Pancharatha Plan",
+      "asi_citation": "Debala Mitra (1968, pp. 42-49); Alice Boner (1966, pp. 78-85)",
+      "unesco_reference": "UNESCO Ref 242, Criterion (iii): Exceptional testimony to Eastern Ganga art and sculptural mastery",
+      "epigraphy": "Madala Panji chronicles record King Narasimhadeva I commissioning 1,200 master sculptors led by the chief architect Bisu Maharana.",
+      "historical_context": "The solid vertical cubical base (bada) of the Jagamohana rises upon a five-division vertical plan (pabhaga, tala jangha, bandhana, upara jangha, and baranda). The exterior walls feature deep niche shrines housing chlorite statues of Surya, flanked by mythical composite beasts (gaja-simhas - lions standing over vanquished elephants, symbolizing the victory of spiritual wisdom over brute force) and life-sized erotic mithuna panels.",
+      "theological_significance": "Represents the terrestrial realm and the manifest universe teeming with vitality, sacred union, royal sovereign power, and the dispelling of darkness.",
+      "curated_qa": [
+        {
+          "question": "What do the lions pouncing over elephants (Gaja-Simha) symbolize?",
+          "answer": "The Gaja-Simha motif (lion crushing an elephant) symbolizes the victory of spiritual illumination (the lion of Surya/intellect) over pride, darkness, and ignorance (the elephant), as well as royal Ganga dynasty sovereignty."
+        },
+        {
+          "question": "What type of stone was used to sculpt the fine reliefs and statues?",
+          "answer": "Three types of stone were used: durable chlorite (for the life-sized Surya images, door frames, and spokes), khondalite (for the main architectural core and walls), and laterite (for the foundations and unseen internal masonry)."
+        }
+      ]
+    },
+    "konark_jagamohana_pyramid": {
+      "part_id": "konark_jagamohana_pyramid",
+      "canonical_term": "Pidha Superstructure (Stepped Pyramid Roof) & Kanti Musician Terraces",
+      "asi_citation": "Debala Mitra (1968, pp. 50-56); Alice Boner (1966, pp. 92-104)",
+      "unesco_reference": "UNESCO Ref 242, Architectural Engineering Assessment of Kalinga Pidha Deula",
+      "epigraphy": "The Silpa Prakasa classifies this structure as a classical 'Pidha Deula' or tiered pavilion.",
+      "historical_context": "The monumental stepped pyramid roof rises in three distinct tiers of horizontal projecting cornices (potalas: 6 in the bottom tier, 6 in the middle, and 5 in the top tier). Separating the tiers are wide open terraces (kantis) upon which stand monumental freestanding sandstone statues of celestial female musicians (Alasa Kanyas / Surasundaris), depicted in joyous musical performance silhouetted against the open sky.",
+      "theological_significance": "Represents the ascending cosmic planes of heaven. The celestial musicians (Gandharvas and Apsaras) fill the cosmos with eternal music to honor the Sun God on his heavenly journey.",
+      "curated_qa": [
+        {
+          "question": "What are the statues standing on the high terraces of the pyramid?",
+          "answer": "They are the 'Alasa Kanyas' or 'Surasundaris'—monumental freestanding sandstone sculptures of female celestial musicians, each standing larger than life-sized, passionately playing cymbals, drums, and flutes against the sky to celebrate the Sun God."
+        },
+        {
+          "question": "Why is the roof designed as a stepped pyramid?",
+          "answer": "This is the signature style of Kalinga 'Pidha Deula' architecture. The stepped horizontal courses (potalas) provide massive structural load distribution while creating an ascending visual rhythm leading the eye upward to the divine summit."
+        }
+      ]
+    },
+    "konark_jagamohana_mastaka": {
+      "part_id": "konark_jagamohana_mastaka",
+      "canonical_term": "Jagamohana Mastaka (Crowning Amalaka, Beki, & Kalasa)",
+      "asi_citation": "Debala Mitra (1968, pp. 57-59)",
+      "unesco_reference": "UNESCO Ref 242, Structural Consolidation and Sand-Filling Archive (1901-1904)",
+      "epigraphy": "ASI conserved the hollow Jagamohana chamber in 1901-1904 under Lieutenant Governor Sir John Woodburn by sand-filling to prevent collapse.",
+      "historical_context": "The crowning pinnacle of the Jagamohana pyramid. It rests on the circular neck (beki), supported by eight monumental crouching stone lions. Above the beki rests the enormous ribbed fluted stone disc (amalaka), followed by the bell-shaped khapuri and the sacred water-urn finial (kalasa), marking the highest surviving intact structural point of the Konark complex.",
+      "theological_significance": "The Amalaka represents the cosmic solar disc and the sacred lotus seat of divine consciousness, while the Kalasa urn contains the cosmic nectar of immortality (amrita).",
+      "curated_qa": [
+        {
+          "question": "Why was the interior of the Jagamohana filled with sand?",
+          "answer": "In 1901-1904, British colonial engineers and the Archaeological Survey of India under Sir John Woodburn filled the entire hollow interior of the Jagamohana with sand and sealed the four entrance portals with masonry walls to prevent its monumental ceiling and stepped roof from collapsing under centuries of structural strain."
+        },
+        {
+          "question": "What does the large ribbed disc on top represent?",
+          "answer": "Known as the 'Amalaka', it represents the fluted cosmic solar fruit and the thousand-petaled lotus, which caps the temple pyramid as a symbol of divine illumination and transcendence."
+        }
+      ]
+    },
+    "konark_rekha_deula_spire": {
+      "part_id": "konark_rekha_deula_spire",
+      "canonical_term": "Vimana (Main Sanctum) & Curvilinear Rekha Deula Shikhara",
+      "asi_citation": "Debala Mitra (1968, pp. 60-68); Percy Brown, 'Indian Architecture', Vol. 1, 1942",
+      "unesco_reference": "UNESCO Ref 242, Historical Reconstruction of the Lost 227-Foot Sanctuary Spire",
+      "epigraphy": "Abul Fazl's 'Ain-i-Akbari' (16th century) marvels at the Konark temple: 'Even those whose judgment is critical and who are difficult to please, stand astonished at its sight.'",
+      "historical_context": "The main sanctum (vimana) was originally a soaring curvilinear tower (Rekha Deula) that rose over 227 feet (nearly 70 meters) high—taller than any surviving temple in India. It housed the presiding consecrated green chlorite icon of Surya riding his chariot. Due to the extreme weight resting on sandy marine soil near the shoreline, and the removal of the crowning magnetic finials, the tower collapsed in phases between the late 16th and 18th centuries.",
+      "theological_significance": "The Rekha Deula acts as the axis mundi (cosmic pillar) connecting earth, atmosphere, and the transcendent solar realm, rising directly above the cosmic womb (garbhagriha).",
+      "curated_qa": [
+        {
+          "question": "How tall was the original main sanctum tower of Konark?",
+          "answer": "According to architectural measurements and ASI records, the original Rekha Deula sanctum tower rose to a staggering height of approximately 227 feet (nearly 70 meters), making it one of the tallest architectural achievements in pre-modern Asia before its collapse."
+        },
+        {
+          "question": "Why did the main tower collapse?",
+          "answer": "Scholars and ASI engineering studies attribute the collapse to a combination of factors: the tremendous load of thousands of tons of stone resting upon unstable coastal sand and marshland, potential seismic shifts, the ravages of cyclonic ocean gales, and the abandonment of worship following the invasion of Kalapahad in 1568."
+        }
+      ]
+    },
+    "konark_sanctum_crown_finial": {
+      "part_id": "konark_sanctum_crown_finial",
+      "canonical_term": "Sanctum Mastaka, Ayudha & Dhvaja (Cosmic Spire Pinnacle / The 'Black Pagoda' Landmark)",
+      "asi_citation": "Debala Mitra (1968, pp. 69-72); Alice Boner (1966, pp. 110-115)",
+      "unesco_reference": "UNESCO Ref 242, Maritime Cartography and Navigational History Records",
+      "epigraphy": "17th-century European sailing charts designated the towering dark stone sanctum of Konark as the 'Black Pagoda', in contrast to the whitewashed Jagannath temple at Puri known as the 'White Pagoda'.",
+      "historical_context": "The highest pinnacle of the sanctum shikhara once held a monumental crowning iron loadstone (kumbha/dhvaja). Local tradition recounts that a massive natural magnet at the apex could disrupt navigational compasses of ships passing near the Odishan coast in the Bay of Bengal, leading foreign mariners to breach the summit and remove the magnet.",
+      "theological_significance": "Represents the supreme transcendental crown of Surya, dispersing solar light over the oceans and guiding mortal souls across the sea of rebirth (Samsara).",
+      "curated_qa": [
+        {
+          "question": "Why was the Konark Sun Temple historically called the 'Black Pagoda'?",
+          "answer": "European sailors navigating the Bay of Bengal in the 16th and 17th centuries used the soaring dark khondalite tower of Konark as a prominent navigational landmark, charting it as the 'Black Pagoda' to distinguish it from the lime-plastered 'White Pagoda' (Jagannath Temple at Puri)."
+        },
+        {
+          "question": "Is the legend of the apex magnet true?",
+          "answer": "While folklore speaks of a lodestone disrupting ships' compasses, ASI architectural excavations did recover massive forged iron beams (some measuring over 30 feet in length and weighing several tons) embedded horizontally across the stone lintels to reinforce the monumental masonry—a testament to extraordinary 13th-century Odishan metallurgy."
+        }
+      ]
+    }
+  }
+}
