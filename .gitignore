@@ -1,0 +1,11 @@
+# Large reconstruction datasets & tools
+data/raw/
+data/cleaned/
+data/sfm/
+data/3dgs_scenes/
+data/archive_pilot/
+tools/
+output/
+__pycache__/
+*.pyc
+.vscode/

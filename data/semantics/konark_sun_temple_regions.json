@@ -1,0 +1,98 @@
+[
+  {
+    "id": "konark_chariot_plinth_wheels",
+    "label": "Pitha (Plinth) & 24 Monumental Carved Sun Chariot Wheels",
+    "bounds_min": [-0.78, 0.00, -0.96],
+    "bounds_max": [0.78, 0.17, 0.55],
+    "description": "Monumental stone platform carved to represent the colossal chariot of Surya, the Sun God. Encircling the high basement are 24 intricately sculpted chlorite wheels (each nearly 10 feet in diameter with 8 wide and 8 thin spokes serving as astronomical sundials) and extensive friezes depicting marching infantry, royal cavalcades, war elephants, hunting scenes, and musical processions.",
+    "iconography": {
+      "period": "Eastern Ganga dynasty, reign of King Narasimhadeva I (c. 1250 CE)",
+      "architectural_element": "Pitha (Adhisthana plinth) & Surya Chakras (Astronomical Sundial Wheels)",
+      "thematic_meaning": "The 24 wheels represent the 24 fortnights (pakshas) of the solar year, while the 8 major spokes measure the 8 praharas (3-hour periods) of day and night."
+    }
+  },
+  {
+    "id": "konark_eastern_sopana_horses",
+    "label": "Eastern Entrance Sopana & Seven Galloping Celestial Horses",
+    "bounds_min": [-0.35, 0.00, 0.55],
+    "bounds_max": [0.35, 0.20, 0.96],
+    "description": "The monumental eastern grand flight of steps leading up to the temple's main terrace. Flanking this ceremonial approach are the remains of seven powerfully sculpted stone stallions, depicted leaping forward in dynamic motion with decorated bridles and saddles, poised to haul the massive solar chariot eastward toward the Bay of Bengal.",
+    "iconography": {
+      "period": "Eastern Ganga dynasty (c. 1250 CE)",
+      "architectural_element": "Sopana (Flight of Steps) & Sapta Ashva (Seven Celestial Horses)",
+      "thematic_meaning": "The seven horses represent the seven days of the week, the seven meters of Vedic poetry, and the prismatic colors of solar light."
+    }
+  },
+  {
+    "id": "konark_natya_mandapa",
+    "label": "Natya Mandapa (Hall of Dance & Musical Performance)",
+    "bounds_min": [-0.35, 0.17, 0.35],
+    "bounds_max": [0.35, 0.55, 0.65],
+    "description": "Exquisitely ornamented hypostyle open pavilion standing on its own high carved plinth directly facing the rising sun. Every column and register is alive with carved relief sculptures of female dancers in classic Odissi postures (bhangas), accompanied by celestial musicians playing cymbals (manjira), flutes (venu), drums (mridangam), and stringed veenas.",
+    "iconography": {
+      "period": "Eastern Ganga dynasty (c. 1250 CE)",
+      "architectural_element": "Natya Mandapa / Mukhasala (Hypostyle Dance Hall)",
+      "thematic_meaning": "Ritual dance offerings (devadasi seva) celebrating divine harmony, celestial joy, and the dawn illumination of Surya."
+    }
+  },
+  {
+    "id": "konark_jagamohana_bada",
+    "label": "Jagamohana Bada (Audience Hall Wall Registers & Surya Niches)",
+    "bounds_min": [-0.43, 0.17, -0.22],
+    "bounds_max": [0.43, 0.45, 0.35],
+    "description": "The solid vertical cubical body (bada) of the Jagamohana, divided into five horizontal rathas (pancharatha plan). The exterior walls feature deep niche shrines housing life-sized chlorite sculptures of Surya riding his chariot at different hours of the day, flanked by mythical composite beasts (gaja-simhas), celestial maidens (alasakanyas), and amorous couples (mithunas).",
+    "iconography": {
+      "period": "Eastern Ganga dynasty (c. 1250 CE)",
+      "architectural_element": "Bada (Vertical wall structure with Tala-jangha & Upana registers)",
+      "thematic_meaning": "The manifestation of cosmic solar energy across the terrestrial realm, fertility, and divine abundance."
+    }
+  },
+  {
+    "id": "konark_jagamohana_pyramid",
+    "label": "Jagamohana Pidha Superstructure & Alasa Kanya Terraces",
+    "bounds_min": [-0.43, 0.45, -0.22],
+    "bounds_max": [0.43, 0.76, 0.35],
+    "description": "The colossal stepped pyramidal roof constructed in classic Kalinga Pidha Deula architecture. Composed of three receding tiers of horizontal cornices (potalas). Along the broad intervening open terraces (kantis) stand monumental freestanding sandstone statues of female celestial musicians (Alasa Kanyas), each standing over life-sized and playing cymbals, drums, and wind instruments against the open sky.",
+    "iconography": {
+      "period": "Eastern Ganga dynasty (c. 1250 CE)",
+      "architectural_element": "Pidha (Stepped horizontal roof courses) & Kanti (Open musician terraces)",
+      "thematic_meaning": "Ascending cosmic planes of sound and music vibrating throughout the celestial heavens."
+    }
+  },
+  {
+    "id": "konark_jagamohana_mastaka",
+    "label": "Jagamohana Mastaka (Crowning Amalaka Disc & Kalasa Urn)",
+    "bounds_min": [-0.25, 0.76, -0.15],
+    "bounds_max": [0.25, 0.92, 0.22],
+    "description": "The crowning architectural pinnacle capping the Jagamohana pyramid. Supported by crouching stone lions and celestial bearers, it features the circular fluted Amalaka (resembling the sacred amla fruit / solar disc) topped by the bell-shaped Khapuri and the sacred water-urn Kalasa marking the apex of the audience hall.",
+    "iconography": {
+      "period": "Eastern Ganga dynasty (c. 1250 CE)",
+      "architectural_element": "Mastaka (Head/Crown), Amalaka (Fluted stone disc) & Kalasa (Sacred water urn)",
+      "thematic_meaning": "Cosmic solar fullness, purity, and the nectar of divine immortality."
+    }
+  },
+  {
+    "id": "konark_rekha_deula_spire",
+    "label": "Vimana (Main Sanctum) & Curvilinear Rekha Deula Shikhara",
+    "bounds_min": [-0.56, 0.17, -0.96],
+    "bounds_max": [0.56, 0.98, -0.22],
+    "description": "The soaring curvilinear sanctum tower (Rekha Deula) housing the inner garbhagriha where the presiding deity of Surya was venerated. Originally ascending over 220 feet high, its towering vertical ribs (pagas) are encrusted with miniature temple replicas (angashikharas), intricate floral scrollwork, and parsvadevata niche sculptures of the Sun God in green chlorite.",
+    "iconography": {
+      "period": "Eastern Ganga dynasty (c. 1250 CE)",
+      "architectural_element": "Rekha Deula (Curvilinear shikhara tower) & Garbhagriha (Sanctum Sanctorum)",
+      "thematic_meaning": "The cosmic axis (axis mundi) rising like the holy Mount Meru to bridge the mortal earth and solar heavens."
+    }
+  },
+  {
+    "id": "konark_sanctum_crown_finial",
+    "label": "Sanctum Mastaka & Cosmic Spire Crown Finial",
+    "bounds_min": [-0.26, 0.98, -0.75],
+    "bounds_max": [0.26, 1.22, -0.40],
+    "description": "The uppermost summit and finial terminating the soaring Rekha Deula spire at the pinnacle of the sanctuary. In historical records, this summit was once capped by a colossal iron and stone crowning member (dhvaja) that served as a landmark for mariners navigating the Bay of Bengal, known historically as the 'Black Pagoda'.",
+    "iconography": {
+      "period": "Eastern Ganga dynasty (c. 1250 CE)",
+      "architectural_element": "Sanctum Mastaka, Ayudha & Dhvaja Finial",
+      "thematic_meaning": "The ultimate transcendence of light over darkness and the supreme cosmic crown of the Sun God."
+    }
+  }
+]

@@ -1,0 +1,25 @@
+[
+  {
+    "id": "ellora_vimana_shikhara",
+    "label": "Monolithic Shiva Vimana & Shikhara (Central Spire)",
+    "bounds_min": [-2.2, 2.5, -2.5],
+    "bounds_max": [2.2, 7.6, 1.5],
+    "description": "Monumental 3-storey monolithic Dravidian spire rising 32 meters from the courtyard floor, carved top-down from a single basalt cliff. Features elaborate tiers of miniature pavilions (kutas and salas), topped by an octagonal domical shikhara.",
+    "iconography": {
+      "period": "Rashtrakuta dynasty, reign of Krishna I (c. 756-773 CE)",
+      "architectural_type": "Dravida rock-cut monolith",
+      "thematic_meaning": "Represents Mount Kailash, the cosmic terrestrial axis and mythical abode of Lord Shiva."
+    }
+  },
+  {
+    "id": "ellora_nandi_mandapa",
+    "label": "Monolithic Nandi Mandapa & Entry Pavilion",
+    "bounds_min": [-2.0, 0.2, 0.5],
+    "bounds_max": [2.0, 3.5, 3.6],
+    "description": "Two-storey detached square pavilion sheltering the sacred bull Nandi, facing the sanctum. Connected to the main temple by a rock-cut footbridge across the courtyard.",
+    "iconography": {
+      "period": "Rashtrakuta dynasty, 8th century CE",
+      "thematic_meaning": "Nandi symbolizes steadfast devotion, waiting eternally in contemplation of Shiva."
+    }
+  }
+]

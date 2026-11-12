@@ -1,0 +1,25 @@
+[
+  {
+    "id": "modhera_sabha_mandapa",
+    "label": "Sabhamandapa (Hall of 52 Solar Pillars)",
+    "bounds_min": [-2.0, 0.2, -2.0],
+    "bounds_max": [2.0, 3.5, 2.0],
+    "description": "Exquisitely carved octagonal open pillared assembly hall featuring 52 sculpted columns depicting scenes from the Ramayana, Mahabharata, and aspects of the 52 weeks of the solar year.",
+    "iconography": {
+      "period": "Solanki (Chalukya) dynasty, 1026-1027 CE",
+      "patron": "King Bhima I",
+      "thematic_meaning": "Astronomically aligned with the equinox; sunlight at equinox passed directly through this hall into the garbhagriha."
+    }
+  },
+  {
+    "id": "modhera_kirti_torana",
+    "label": "Ornamental Kirti-Torana Gateway Arch",
+    "bounds_min": [-2.6, 0.0, 0.2],
+    "bounds_max": [-0.5, 2.8, 2.2],
+    "description": "Free-standing ornamental triumphal gateway arch leading from the Surya Kund stepped tank into the Sabha Mandapa, featuring delicate cusp arches and makara gargoyles.",
+    "iconography": {
+      "period": "Solanki dynasty, 11th century CE",
+      "thematic_meaning": "Sacred threshold marking the transition between the ritual bathing waters and the divine sanctuary."
+    }
+  }
+]

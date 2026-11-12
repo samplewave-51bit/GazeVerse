@@ -1,0 +1,111 @@
+[
+  {
+    "id": "hampi_elephant_guardians_steps",
+    "label": "Entrance Sopana (Staircase) & Flanking Elephant Guardians",
+    "bounds_min": [-0.38, 0.00, 0.45],
+    "bounds_max": [0.38, 0.45, 0.93],
+    "description": "Steep monolithic stone access stairs (sopana) leading up to the sanctum floor, flanked by two life-sized sculpted elephants with inward-curled trunks and ornamental saddlecloths. These elephants guard the threshold and were installed by conservationists to replace earlier mythical stone horses whose remnants are still traceable behind them.",
+    "iconography": {
+      "period": "Vijayanagara Empire, 16th century CE",
+      "patron": "Emperor Krishnadevaraya",
+      "architectural_element": "Sopana (flight of steps) & Gaja Vahana (Elephant threshold guardians)",
+      "thematic_meaning": "Royal majesty, auspicious threshold protection, and divine entry to the sacred presence."
+    }
+  },
+  {
+    "id": "hampi_wheels_front_left",
+    "label": "Front-Left Monolithic Concentric Wheel & Stone Axle",
+    "bounds_min": [-0.63, 0.00, 0.00],
+    "bounds_max": [-0.35, 0.58, 0.52],
+    "description": "Massive monolithic granite wheel carved with exquisite concentric circular moldings mimicking a wooden processional temple car (ratha). Displays 16 radiating floral spokes and an ornate central lotus hubcap (karnika). Originally fitted with functional stone axle pins permitting rotation during ceremonial festivals.",
+    "iconography": {
+      "period": "Vijayanagara Empire, 16th century CE",
+      "architectural_element": "Chakra (Chariot Wheel) & Aksha (Stone Axle Hub)",
+      "thematic_meaning": "Cosmic wheel of time (Kala Chakra) propelling the deity's journey across the mortal universe."
+    }
+  },
+  {
+    "id": "hampi_wheels_front_right",
+    "label": "Front-Right Monolithic Concentric Wheel & Stone Axle",
+    "bounds_min": [0.35, 0.00, 0.00],
+    "bounds_max": [0.63, 0.58, 0.52],
+    "description": "Symmetrically balanced front-right concentric granite wheel. Intricately carved from individual granite blocks and pegged with stone dowels, featuring concentric beading, stylized lotus medallions, and axle-locking stone brackets reflecting master-mason metallurgy translated into stone.",
+    "iconography": {
+      "period": "Vijayanagara Empire, 16th century CE",
+      "architectural_element": "Chakra (Chariot Wheel) & Aksha (Stone Axle Hub)",
+      "thematic_meaning": "Dynamic divine movement and celestial chariot propulsion."
+    }
+  },
+  {
+    "id": "hampi_wheels_rear_left",
+    "label": "Rear-Left Monolithic Concentric Wheel & Stone Axle",
+    "bounds_min": [-0.65, 0.00, -0.68],
+    "bounds_max": [-0.35, 0.58, -0.08],
+    "description": "Rear-left processional wheel resting beneath the main sanctum base. Like its counterparts, it is intricately fluted with lotus petals and decorative acanthus-style scrolls, demonstrating the extraordinary ability of Vijayanagara sculptors to carve hard crystalline granite as if it were soft timber.",
+    "iconography": {
+      "period": "Vijayanagara Empire, 16th century CE",
+      "architectural_element": "Chakra (Chariot Wheel) & Aksha (Stone Axle Hub)",
+      "thematic_meaning": "Steadfast cosmic foundation supporting the celestial shrine."
+    }
+  },
+  {
+    "id": "hampi_wheels_rear_right",
+    "label": "Rear-Right Monolithic Concentric Wheel & Stone Axle",
+    "bounds_min": [0.35, 0.00, -0.68],
+    "bounds_max": [0.65, 0.58, -0.08],
+    "description": "Rear-right processional wheel completing the four-wheeled chassis of the stone ratha. Positioned beneath the southern flank of the sanctum, preserving traces of natural mineral pigments originally used to paint the entire chariot during the golden age of Vijayanagara.",
+    "iconography": {
+      "period": "Vijayanagara Empire, 16th century CE",
+      "architectural_element": "Chakra (Chariot Wheel) & Aksha (Stone Axle Hub)",
+      "thematic_meaning": "Cosmic balance, solar alignment, and ceremonial procession."
+    }
+  },
+  {
+    "id": "hampi_chariot_plinth_adhisthana",
+    "label": "Carved Chariot Platform & Adhisthana Narrative Friezes",
+    "bounds_min": [-0.46, 0.18, -0.92],
+    "bounds_max": [0.46, 0.56, 0.45],
+    "description": "Elevated rectangular platform (adhisthana) forming the body of the chariot. Embellished with continuous low-relief narrative friezes depicting battle skirmishes, cavalry chargers, royal processions, marching war elephants, and mythical leonine vyalas. The moldings follow classic Dravidian upana, padma (lotus), and kumuda courses.",
+    "iconography": {
+      "period": "Vijayanagara Empire, 16th century CE",
+      "architectural_element": "Adhisthana (molded base) with Gajathara & Asvathara narrative friezes",
+      "thematic_meaning": "Temporal empire, sovereign might, and cosmological order upholding the divine sphere."
+    }
+  },
+  {
+    "id": "hampi_garuda_sanctum_pillars",
+    "label": "Pillared Mandapa & Garuda Sanctum Chamber (Garbhagriha)",
+    "bounds_min": [-0.62, 0.55, -0.88],
+    "bounds_max": [0.62, 1.00, 0.38],
+    "description": "Open pillared pavilion (mandapa) resting atop the chariot chassis, supported by multi-faceted slender granite pillars with pushpotaka (floral corbel) capitals. Inside this chamber once stood the sacred stone image of Garuda (the divine avian mount of Lord Vishnu), situated directly on the central axis facing the main Vittala sanctum.",
+    "iconography": {
+      "period": "Vijayanagara Empire, 16th century CE",
+      "architectural_element": "Garbhagriha (Sanctum) & Stambha (Composite Granite Pillars)",
+      "thematic_meaning": "Garuda Sannidhi: Eternal celestial devotion and vehicle of Lord Venkateshwara."
+    }
+  },
+  {
+    "id": "hampi_kapota_cornice",
+    "label": "Overhanging Carved Cornice (Kapota) & Parapet",
+    "bounds_min": [-0.58, 1.00, -0.84],
+    "bounds_max": [0.58, 1.16, 0.36],
+    "description": "Deeply undercut, curved overhanging stone eaves (kapota) protecting the sanctum below from rainwater. Features rhythmic miniature horseshoe-shaped kudu (nasika) dormer windows, floral arabesque drops at the corners, and an ornamental parapet course uniting the lower pavilion with the superstructure.",
+    "iconography": {
+      "period": "Vijayanagara Empire, 16th century CE",
+      "architectural_element": "Kapota (curved cornice) with Kudu / Nasika decorative dormers",
+      "thematic_meaning": "Protective celestial overhang demarcating the earthly hall from the heavenly spire."
+    }
+  },
+  {
+    "id": "hampi_vimana_superstructure",
+    "label": "Stepped Dravidian Vimana Superstructure (Shikhara)",
+    "bounds_min": [-0.56, 1.15, -0.82],
+    "bounds_max": [0.56, 1.38, 0.35],
+    "description": "Tiered stepped-pyramidal granite tower crowning the chariot pavilion. Composed of horizontal receding talas (storeys) decorated with miniature pavilion shrines (kutas, shalas, and panjaras) terminating in a domical finial. Originally topped by a brick and stucco tower that was dismantled in the late 19th century to prevent structural collapse.",
+    "iconography": {
+      "period": "Vijayanagara Empire, 16th century CE",
+      "architectural_element": "Vimana / Dravidian Shikhara (Stepped Pyramidal Superstructure)",
+      "thematic_meaning": "Representation of Mount Meru, ascending towards the celestial realms."
+    }
+  }
+]

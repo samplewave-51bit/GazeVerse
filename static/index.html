@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GazeVerse 3D Spatial Gaze Raycaster & AI Guide</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #0a0c10;
+      color: #e6edf3;
+    }
+    #canvas-container {
+      width: 100vw;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    #crosshair {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 16px;
+      height: 16px;
+      margin-left: -8px;
+      margin-top: -8px;
+      pointer-events: none;
+      z-index: 100;
+      border: 2px solid rgba(0, 255, 204, 0.8);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(0, 255, 204, 0.6);
+      transition: all 0.15s ease-out;
+    }
+    #crosshair.locked {
+      border-color: #ff3366;
+      box-shadow: 0 0 14px #ff3366;
+      transform: scale(1.3);
+    }
+    #ui-panel {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 380px;
+      background: rgba(13, 17, 23, 0.88);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 18px;
+      z-index: 10;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+    h2 {
+      margin-top: 0;
+      font-size: 1.15rem;
+      color: #00ffcc;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    select, button {
+      width: 100%;
+      padding: 9px 12px;
+      background: #21262d;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      color: #f0f6fc;
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+    select:focus, button:focus {
+      outline: none;
+      border-color: #00ffcc;
+    }
+    #guide-card {
+      background: rgba(22, 27, 34, 0.8);
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 10px;
+      max-height: 380px;
+      overflow-y: auto;
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      border-radius: 12px;
+      background: rgba(0, 255, 204, 0.15);
+      color: #00ffcc;
+      border: 1px solid rgba(0, 255, 204, 0.3);
+      margin-bottom: 8px;
+    }
+    .instructions {
+      font-size: 0.78rem;
+      color: #8b949e;
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/PLYLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head>
+<body>
+  <div id="crosshair"></div>
+  <div id="canvas-container"></div>
+
+  <div id="ui-panel">
+    <h2><span>👁️</span> GazeVerse 3D Spatial Guide</h2>
+    
+    <label for="monument-select" style="font-size: 0.8rem; color: #8b949e;">Select Heritage Site:</label>
+    <select id="monument-select">
+      <option value="hampi_stone_chariot" selected>Hampi Stone Chariot (Textured 3D Mesh GLB)</option>
+      <option value="konark_sun_temple">Konark Sun Temple (Textured 3D Mesh GLB)</option>
+    </select>
+
+    <div id="guide-card">
+      <span class="badge" id="gaze-status">Raycasting Active</span>
+      <div id="guide-text">Rotate the camera. The center crosshair simulates your VR gaze vector into the 3D scene.</div>
+    </div>
+
+    <div class="instructions">
+      • <b>Left Click + Drag:</b> Rotate Gaze Vector<br>
+      • <b>Right Click + Drag:</b> Pan Camera<br>
+      • <b>Scroll:</b> Zoom / Translate
+    </div>
+  </div>
+
+  <script>
+    let scene, camera, renderer, controls, pointCloud, currentMesh, gridHelper;
+    let boundingBoxes = [];
+    let currentMonument = "hampi_stone_chariot";
+    let isRaycasting = false;
+    let lastHitId = null;
+
+    const crosshair = document.getElementById("crosshair");
+    const guideText = document.getElementById("guide-text");
+    const gazeStatus = document.getElementById("gaze-status");
+
+    function createCircleTexture() {
+      const canvas = document.createElement("canvas");
+      canvas.width = 64;
+      canvas.height = 64;
+      const ctx = canvas.getContext("2d");
+      const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+      grad.addColorStop(0, "rgba(255, 255, 255, 1.0)");
+      grad.addColorStop(0.5, "rgba(255, 255, 255, 0.85)");
+      grad.addColorStop(0.85, "rgba(255, 255, 255, 0.25)");
+      grad.addColorStop(1, "rgba(255, 255, 255, 0.0)");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 64, 64);
+      return new THREE.CanvasTexture(canvas);
+    }
+    const particleTexture = createCircleTexture();
+
+    function init() {
+      const container = document.getElementById("canvas-container");
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x0a0c10);
+
+      camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.outputEncoding = THREE.sRGBEncoding;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.1;
+      container.appendChild(renderer.domElement);
+
+      controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+
+      // Architectural Ground Grid
+      gridHelper = new THREE.GridHelper(16, 32, 0x00ffcc, 0x1f2937);
+      gridHelper.position.y = 0;
+      scene.add(gridHelper);
+
+      // Balanced Lighting for PBR Textures & Point Clouds
+      const ambientLight = new THREE.AmbientLight(0xffffff, 1.4);
+      scene.add(ambientLight);
+
+      const dirLight1 = new THREE.DirectionalLight(0xfffaed, 1.8);
+      dirLight1.position.set(6, 12, 8);
+      scene.add(dirLight1);
+
+      const dirLight2 = new THREE.DirectionalLight(0xdbeafe, 0.9);
+      dirLight2.position.set(-6, 8, -6);
+      scene.add(dirLight2);
+
+      window.addEventListener("resize", onWindowResize);
+      controls.addEventListener("change", triggerGazeRaycast);
+
+      document.getElementById("monument-select").addEventListener("change", (e) => {
+        loadMonument(e.target.value);
+      });
+
+      loadMonument(currentMonument);
+      animate();
+    }
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    function clearScene() {
+      if (pointCloud) {
+        scene.remove(pointCloud);
+        pointCloud = null;
+      }
+      if (currentMesh) {
+        scene.remove(currentMesh);
+        currentMesh = null;
+      }
+      boundingBoxes.forEach(b => scene.remove(b));
+      boundingBoxes = [];
+    }
+
+    const MONUMENT_VIEWS = {
+      hampi_stone_chariot: {
+        cam: [0, 1.1, 2.4],
+        target: [0, 0.65, 0]
+      },
+      khajuraho_kandariya: {
+        cam: [0, 2.5, 5.5],
+        target: [0, 1.4, 0]
+      },
+      konark_sun_temple: {
+        cam: [0, 1.15, 2.5],
+        target: [0, 0.55, 0]
+      }
+    };
+
+    function setupCameraAndRegions(monumentId) {
+      const view = MONUMENT_VIEWS[monumentId] || { cam: [0, 2, 4], target: [0, 1, 0] };
+      camera.position.set(...view.cam);
+      controls.target.set(...view.target);
+      controls.update();
+
+      // Load semantic bounding regions
+      fetch(`/api/regions/${monumentId}`)
+        .then(res => res.json())
+        .then(regions => {
+          regions.forEach(reg => {
+            const min = new THREE.Vector3(...reg.bounds_min);
+            const max = new THREE.Vector3(...reg.bounds_max);
+            const box = new THREE.Box3(min, max);
+            const helper = new THREE.Box3Helper(box, 0x00ffcc);
+            helper.userData = reg;
+            scene.add(helper);
+            boundingBoxes.push(helper);
+          });
+          gazeStatus.innerText = "Gaze Raycasting Active";
+          triggerGazeRaycast();
+        });
+    }
+
+    function loadMonument(monumentId) {
+      currentMonument = monumentId;
+      clearScene();
+      guideText.innerHTML = "<i>Loading complete 3D architectural model & spatial semantics...</i>";
+      gazeStatus.innerText = "Loading Scene...";
+
+      if (monumentId === "hampi_stone_chariot" || monumentId === "konark_sun_temple") {
+        const gltfLoader = new THREE.GLTFLoader();
+        const modelUrl = monumentId === "hampi_stone_chariot"
+          ? "/static/models/hampi_stone_chariot_upright.glb"
+          : "/static/models/konark_sun_temple_upright.glb";
+        gltfLoader.load(
+          modelUrl,
+          (gltf) => {
+            currentMesh = gltf.scene;
+            scene.add(currentMesh);
+            setupCameraAndRegions(monumentId);
+          },
+          (xhr) => {
+            if (xhr.total > 0) {
+              const pct = Math.round((xhr.loaded / xhr.total) * 100);
+              gazeStatus.innerText = `Loading 3D Mesh: ${pct}%`;
+            }
+          },
+          (err) => {
+            console.error("GLTF load error:", err);
+            gazeStatus.innerText = "Error loading GLB mesh";
+          }
+        );
+      } else {
+        const plyLoader = new THREE.PLYLoader();
+        plyLoader.load(`/static/models/${monumentId}_dense.ply`, (geometry) => {
+          geometry.computeVertexNormals();
+
+          // Smooth antialiased soft particles replacing chunky square blocks
+          const material = new THREE.PointsMaterial({ 
+            size: 0.042, 
+            map: particleTexture,
+            transparent: true,
+            alphaTest: 0.02,
+            vertexColors: true,
+            sizeAttenuation: true
+          });
+          pointCloud = new THREE.Points(geometry, material);
+          scene.add(pointCloud);
+          setupCameraAndRegions(monumentId);
+        });
+      }
+    }
+
+    let raycastTimeout = null;
+    function triggerGazeRaycast() {
+      if (raycastTimeout) clearTimeout(raycastTimeout);
+      raycastTimeout = setTimeout(performRaycast, 60);
+    }
+
+    function performRaycast() {
+      const rayOrigin = camera.position;
+      const rayDir = new THREE.Vector3();
+      camera.getWorldDirection(rayDir);
+
+      fetch("/api/raycast", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          monument_id: currentMonument,
+          ray_origin: [rayOrigin.x, rayOrigin.y, rayOrigin.z],
+          ray_dir: [rayDir.x, rayDir.y, rayDir.z]
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        // Reset bounding box colors
+        boundingBoxes.forEach(b => {
+          if (b.material) b.material.color.setHex(0x00ffcc);
+        });
+
+        if (data.hit) {
+          crosshair.classList.add("locked");
+          gazeStatus.innerText = `Target Locked (${data.distance}m)`;
+          gazeStatus.style.borderColor = "#ff3366";
+          gazeStatus.style.color = "#ff3366";
+
+          // Highlight the targeted bounding box in magenta
+          const hitHelper = boundingBoxes.find(b => b.userData && b.userData.id === data.region.id);
+          if (hitHelper && hitHelper.material) {
+            hitHelper.material.color.setHex(0xff3366);
+          }
+
+          guideText.innerHTML = `
+            <b style="color: #00ffcc; font-size: 1rem;">${data.region.label}</b><br>
+            <p style="margin: 6px 0;">${data.region.description}</p>
+            <div style="font-size: 0.8rem; background: #161b22; padding: 8px; border-radius: 6px; line-height: 1.5;">
+              ${data.region.iconography.architectural_element ? `<b>Element:</b> ${data.region.iconography.architectural_element}<br>` : ''}
+              <b>Period:</b> ${data.region.iconography.period || data.region.iconography.dynasty || 'Vijayanagara Empire, 16th century CE'}<br>
+              ${data.region.iconography.patron ? `<b>Patron:</b> ${data.region.iconography.patron}<br>` : ''}
+              <b>Thematic Meaning:</b> ${data.region.iconography.thematic_meaning || data.region.iconography.thematic_significance || data.region.iconography.mythology || 'Sacred Architecture'}
+            </div>
+          `;
+        } else {
+          crosshair.classList.remove("locked");
+          gazeStatus.innerText = "Raycasting Active (No Target)";
+          gazeStatus.style.borderColor = "#00ffcc";
+          gazeStatus.style.color = "#00ffcc";
+          guideText.innerHTML = "<i>Look at one of the framed semantic bounding boxes to trigger the AI Guide.</i>";
+        }
+      })
+      .catch(err => {
+        console.error("Raycast error:", err);
+      });
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
+
