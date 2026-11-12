@@ -136,6 +136,9 @@
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/PLYLoader.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <!-- MediaPipe Face Mesh & Camera Utils for 1080p Webcam Iris Eye Tracking -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <div id="crosshair"></div>
@@ -149,6 +152,18 @@
       <option value="hampi_stone_chariot" selected>Hampi Stone Chariot (Textured 3D Mesh GLB)</option>
       <option value="konark_sun_temple">Konark Sun Temple (Textured 3D Mesh GLB)</option>
     </select>
+
+    <label for="gaze-mode-select" style="font-size: 0.8rem; color: #8b949e;">Gaze Input Modality:</label>
+    <select id="gaze-mode-select">
+      <option value="head" selected>Head-Gaze / Foveal Reticle (Default)</option>
+      <option value="webcam">Webcam Iris Eye Tracking (1080p Camera)</option>
+    </select>
+
+    <div id="calibration-ctrls" style="display: none; margin-bottom: 12px;">
+      <button id="btn-calibrate" style="background: rgba(0, 255, 204, 0.15); border: 1px solid #00ffcc; color: #00ffcc; font-size: 0.8rem; padding: 7px; border-radius: 6px; font-weight: bold; width: 100%; cursor: pointer;">
+        🎯 Start 5-Point Eye Calibration
+      </button>
+    </div>
 
     <div id="guide-card">
       <span class="badge" id="gaze-status">Raycasting Active</span>
@@ -171,6 +186,25 @@
     </div>
   </div>
 
+  <!-- Webcam Iris Tracker Picture-in-Picture Preview -->
+  <div id="webcam-pip-container" style="display: none; position: absolute; bottom: 20px; right: 20px; width: 220px; height: 165px; background: rgba(13, 17, 23, 0.94); border: 1px solid #30363d; border-radius: 10px; overflow: hidden; z-index: 100; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+    <video id="webcam-video" style="width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1);" playsinline muted autoplay></video>
+    <canvas id="webcam-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform: scaleX(-1); pointer-events: none;"></canvas>
+    <div style="position: absolute; top: 6px; left: 8px; font-size: 0.7rem; color: #00ffcc; background: rgba(0,0,0,0.7); padding: 2px 6px; border-radius: 4px; font-weight: bold;">
+      MediaPipe Iris 1080p
+    </div>
+    <div id="iris-status" style="position: absolute; bottom: 6px; left: 8px; font-size: 0.68rem; color: #f0f6fc; background: rgba(0,0,0,0.7); padding: 2px 6px; border-radius: 4px;">
+      Camera Standby
+    </div>
+  </div>
+
+  <!-- 5-Point Eye Calibration Overlay Modal -->
+  <div id="calibration-overlay" style="display: none; position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10, 12, 16, 0.94); z-index: 999; flex-direction: column; align-items: center; justify-content: center; user-select: none;">
+    <div style="color: #00ffcc; font-size: 1.4rem; font-weight: bold; margin-bottom: 6px;">🎯 5-Point Iris Gaze Calibration</div>
+    <div id="calib-instruction" style="color: #8b949e; font-size: 0.95rem; margin-bottom: 30px;">Look directly at the glowing red target and click it (Point 1 of 5)</div>
+    <div id="calib-dot" style="position: absolute; width: 32px; height: 32px; background: #ff3366; border: 3px solid #ffffff; border-radius: 50%; cursor: pointer; box-shadow: 0 0 25px #ff3366; transform: translate(-50%, -50%); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);"></div>
+  </div>
+
   <script>
     let scene, camera, renderer, controls, pointCloud, currentMesh, gridHelper;
     let boundingBoxes = [];
@@ -179,6 +213,28 @@
     let lastHitId = null;
     let currentLockedPart = null;
 
+    // Gaze Modality & Webcam Iris State
+    let gazeMode = "head"; // "head" or "webcam"
+    let webcamStream = null;
+    let faceMeshInstance = null;
+    let isCameraRunning = false;
+    let latestIrisReading = { x: 0.5, y: 0.5, valid: false };
+    let smoothGaze = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    
+    // Default calibration gains (mapping relative iris ratios [0,1] to screen space)
+    let calibGain = { cx: 0.48, cy: 0.45, kx: 3.2, ky: 2.8 };
+    
+    // 5-Point Calibration Sequence Data
+    const CALIB_POINTS = [
+      { name: "Center", xNorm: 0.50, yNorm: 0.50 },
+      { name: "Top-Left", xNorm: 0.15, yNorm: 0.15 },
+      { name: "Top-Right", xNorm: 0.85, yNorm: 0.15 },
+      { name: "Bottom-Left", xNorm: 0.15, yNorm: 0.85 },
+      { name: "Bottom-Right", xNorm: 0.85, yNorm: 0.85 }
+    ];
+    let currentCalibStep = 0;
+    let calibSamples = [];
+
     const crosshair = document.getElementById("crosshair");
     const guideText = document.getElementById("guide-text");
     const gazeStatus = document.getElementById("gaze-status");
@@ -186,6 +242,18 @@
     const suggestedPills = document.getElementById("suggested-pills");
     const partChatInput = document.getElementById("part-chat-input");
     const partChatBtn = document.getElementById("part-chat-btn");
+
+    // UI Mode & Calibration Elements
+    const gazeModeSelect = document.getElementById("gaze-mode-select");
+    const calibrationCtrls = document.getElementById("calibration-ctrls");
+    const btnCalibrate = document.getElementById("btn-calibrate");
+    const webcamPip = document.getElementById("webcam-pip-container");
+    const webcamVideo = document.getElementById("webcam-video");
+    const webcamCanvas = document.getElementById("webcam-canvas");
+    const irisStatus = document.getElementById("iris-status");
+    const calibOverlay = document.getElementById("calibration-overlay");
+    const calibInstruction = document.getElementById("calib-instruction");
+    const calibDot = document.getElementById("calib-dot");
 
     function formatMarkdown(text) {
       if (!text) return "";
@@ -309,6 +377,12 @@
         loadMonument(e.target.value);
       });
 
+      gazeModeSelect.addEventListener("change", (e) => {
+        setGazeMode(e.target.value);
+      });
+      btnCalibrate.addEventListener("click", startCalibration);
+      calibDot.addEventListener("click", recordCalibPoint);
+
       loadMonument(currentMonument);
       animate();
     }
@@ -421,6 +495,231 @@
       }
     }
 
+    // -------------------------------------------------------------
+    // WEBCAM 1080p IRIS EYE-TRACKING & 5-POINT CALIBRATION
+    // -------------------------------------------------------------
+
+    function setGazeMode(mode) {
+      gazeMode = mode;
+      if (mode === "webcam") {
+        webcamPip.style.display = "block";
+        calibrationCtrls.style.display = "block";
+        gazeStatus.innerText = "Webcam Eye Tracking Active (1080p)";
+        guideText.innerHTML = "<b>Webcam Iris Tracking Active:</b> Your 1080p camera tracks your irises in real-time. Click <i>'Start 5-Point Eye Calibration'</i> to calibrate to your screen!";
+        if (!isCameraRunning) {
+          initWebcamTracker();
+        }
+      } else {
+        webcamPip.style.display = "none";
+        calibrationCtrls.style.display = "none";
+        gazeStatus.innerText = "Head-Gaze Active";
+        guideText.innerHTML = "Rotate the camera. The center crosshair simulates your VR gaze vector into the 3D scene.";
+        crosshair.style.left = "50%";
+        crosshair.style.top = "50%";
+        crosshair.style.transform = "translate(-50%, -50%)";
+        triggerGazeRaycast();
+      }
+    }
+
+    async function initWebcamTracker() {
+      irisStatus.innerText = "Requesting 1080p Camera...";
+      try {
+        const constraints = {
+          video: {
+            width: { ideal: 1920, min: 1280 },
+            height: { ideal: 1080, min: 720 },
+            facingMode: "user"
+          }
+        };
+        webcamStream = await navigator.mediaDevices.getUserMedia(constraints);
+        webcamVideo.srcObject = webcamStream;
+        await webcamVideo.play();
+        isCameraRunning = true;
+        irisStatus.innerText = "Loading MediaPipe Model...";
+
+        faceMeshInstance = new FaceMesh({
+          locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`
+        });
+
+        faceMeshInstance.setOptions({
+          maxNumFaces: 1,
+          refineLandmarks: true, // Enables iris landmarks 468-477
+          minDetectionConfidence: 0.5,
+          minTrackingConfidence: 0.5
+        });
+
+        faceMeshInstance.onResults(onFaceMeshResults);
+
+        // Frame processing loop
+        async function processFrame() {
+          if (isCameraRunning && webcamVideo.readyState >= 2) {
+            await faceMeshInstance.send({ image: webcamVideo });
+          }
+          requestAnimationFrame(processFrame);
+        }
+        requestAnimationFrame(processFrame);
+
+        irisStatus.innerText = "Iris Tracking Active (1080p)";
+      } catch (err) {
+        console.error("Webcam init error:", err);
+        irisStatus.innerText = "Camera Access Error";
+        alert("Could not access 1080p camera: " + err.message);
+      }
+    }
+
+    function drawIrisOverlay(landmarks) {
+      const w = webcamCanvas.width = webcamVideo.videoWidth || 320;
+      const h = webcamCanvas.height = webcamVideo.videoHeight || 240;
+      const ctx = webcamCanvas.getContext("2d");
+      ctx.clearRect(0, 0, w, h);
+
+      ctx.strokeStyle = "rgba(0, 255, 204, 0.7)";
+      ctx.lineWidth = 1.5;
+
+      const rightEyePts = [33, 160, 158, 133, 153, 144];
+      const leftEyePts = [362, 385, 387, 263, 373, 380];
+
+      function drawLoop(pts) {
+        ctx.beginPath();
+        pts.forEach((idx, i) => {
+          const pt = landmarks[idx];
+          if (i === 0) ctx.moveTo(pt.x * w, pt.y * h);
+          else ctx.lineTo(pt.x * w, pt.y * h);
+        });
+        ctx.closePath();
+        ctx.stroke();
+      }
+      drawLoop(rightEyePts);
+      drawLoop(leftEyePts);
+
+      // Draw Iris Centers (468 and 473)
+      const rIris = landmarks[468];
+      const lIris = landmarks[473];
+      if (rIris) {
+        ctx.fillStyle = "#ff3366";
+        ctx.beginPath();
+        ctx.arc(rIris.x * w, rIris.y * h, 3.5, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+      if (lIris) {
+        ctx.fillStyle = "#ff3366";
+        ctx.beginPath();
+        ctx.arc(lIris.x * w, lIris.y * h, 3.5, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+    }
+
+    function onFaceMeshResults(results) {
+      if (!results.multiFaceLandmarks || results.multiFaceLandmarks.length === 0) {
+        latestIrisReading.valid = false;
+        irisStatus.innerText = "Face not in frame";
+        return;
+      }
+      const landmarks = results.multiFaceLandmarks[0];
+      drawIrisOverlay(landmarks);
+
+      const rOuter = landmarks[33], rInner = landmarks[133], rTop = landmarks[159], rBottom = landmarks[145], rIris = landmarks[468];
+      const lInner = landmarks[362], lOuter = landmarks[263], lTop = landmarks[386], lBottom = landmarks[374], lIris = landmarks[473];
+
+      if (rIris && lIris && rOuter && rInner && lOuter && lInner && rTop && rBottom && lTop && lBottom) {
+        const rRatioX = (rIris.x - rOuter.x) / (rInner.x - rOuter.x + 1e-6);
+        const rRatioY = (rIris.y - rTop.y) / (rBottom.y - rTop.y + 1e-6);
+        const lRatioX = (lIris.x - lInner.x) / (lOuter.x - lInner.x + 1e-6);
+        const lRatioY = (lIris.y - lTop.y) / (lBottom.y - lTop.y + 1e-6);
+
+        // Average both eyes
+        const avgIrisX = (rRatioX + lRatioX) / 2.0;
+        const avgIrisY = (rRatioY + lRatioY) / 2.0;
+
+        latestIrisReading.x = avgIrisX;
+        latestIrisReading.y = avgIrisY;
+        latestIrisReading.valid = true;
+        irisStatus.innerText = `Iris: (${avgIrisX.toFixed(2)}, ${avgIrisY.toFixed(2)})`;
+
+        // Screen mapping
+        const targetScreenX = window.innerWidth * (0.5 + (avgIrisX - calibGain.cx) * calibGain.kx);
+        const targetScreenY = window.innerHeight * (0.5 + (avgIrisY - calibGain.cy) * calibGain.ky);
+
+        // Exponential smoothing (alpha = 0.22)
+        smoothGaze.x += (targetScreenX - smoothGaze.x) * 0.22;
+        smoothGaze.y += (targetScreenY - smoothGaze.y) * 0.22;
+
+        smoothGaze.x = Math.max(15, Math.min(window.innerWidth - 15, smoothGaze.x));
+        smoothGaze.y = Math.max(15, Math.min(window.innerHeight - 15, smoothGaze.y));
+
+        if (gazeMode === "webcam") {
+          crosshair.style.left = `${smoothGaze.x}px`;
+          crosshair.style.top = `${smoothGaze.y}px`;
+          crosshair.style.transform = "translate(-50%, -50%)";
+          triggerGazeRaycast();
+        }
+      }
+    }
+
+    // 5-Point Eye Calibration Implementation
+    function startCalibration() {
+      if (!isCameraRunning) {
+        alert("Please allow camera access before calibrating.");
+        return;
+      }
+      currentCalibStep = 0;
+      calibSamples = [];
+      calibOverlay.style.display = "flex";
+      showNextCalibPoint();
+    }
+
+    function showNextCalibPoint() {
+      if (currentCalibStep >= CALIB_POINTS.length) {
+        finishCalibration();
+        return;
+      }
+      const pt = CALIB_POINTS[currentCalibStep];
+      calibInstruction.innerText = `Look directly at Point ${currentCalibStep + 1} of ${CALIB_POINTS.length} (${pt.name}) and click it!`;
+      calibDot.style.left = `${pt.xNorm * 100}%`;
+      calibDot.style.top = `${pt.yNorm * 100}%`;
+    }
+
+    function recordCalibPoint() {
+      if (!latestIrisReading.valid) {
+        alert("Keep your face steady facing the 1080p camera.");
+        return;
+      }
+      const pt = CALIB_POINTS[currentCalibStep];
+      calibSamples.push({
+        name: pt.name,
+        targetX: pt.xNorm,
+        targetY: pt.yNorm,
+        irisX: latestIrisReading.x,
+        irisY: latestIrisReading.y
+      });
+
+      currentCalibStep++;
+      showNextCalibPoint();
+    }
+
+    function finishCalibration() {
+      calibOverlay.style.display = "none";
+      if (calibSamples.length >= 5) {
+        const center = calibSamples[0];
+        calibGain.cx = center.irisX;
+        calibGain.cy = center.irisY;
+
+        const leftIris = (calibSamples[1].irisX + calibSamples[3].irisX) / 2.0;
+        const rightIris = (calibSamples[2].irisX + calibSamples[4].irisX) / 2.0;
+        const topIris = (calibSamples[1].irisY + calibSamples[2].irisY) / 2.0;
+        const botIris = (calibSamples[3].irisY + calibSamples[4].irisY) / 2.0;
+
+        const spanX = Math.abs(rightIris - leftIris);
+        const spanY = Math.abs(botIris - topIris);
+
+        if (spanX > 0.02) calibGain.kx = 0.70 / spanX;
+        if (spanY > 0.02) calibGain.ky = 0.70 / spanY;
+
+        guideText.innerHTML = `<b>Eye Calibration Successful!</b><br>Trained 5-point mapping on your 1080p camera. Look around the temple to test real eye gaze!`;
+        gazeStatus.innerText = "1080p Eye Calibrated";
+      }
+    }
+
     let raycastTimeout = null;
     function triggerGazeRaycast() {
       if (raycastTimeout) clearTimeout(raycastTimeout);
@@ -428,9 +727,19 @@
     }
 
     function performRaycast() {
-      const rayOrigin = camera.position;
-      const rayDir = new THREE.Vector3();
-      camera.getWorldDirection(rayDir);
+      let rayOrigin, rayDir;
+      if (gazeMode === "webcam") {
+        const ndcX = (smoothGaze.x / window.innerWidth) * 2 - 1;
+        const ndcY = -(smoothGaze.y / window.innerHeight) * 2 + 1;
+        const raycaster = new THREE.Raycaster();
+        raycaster.setFromCamera(new THREE.Vector2(ndcX, ndcY), camera);
+        rayOrigin = raycaster.ray.origin;
+        rayDir = raycaster.ray.direction;
+      } else {
+        rayOrigin = camera.position;
+        rayDir = new THREE.Vector3();
+        camera.getWorldDirection(rayDir);
+      }
 
       fetch("/api/raycast", {
         method: "POST",
